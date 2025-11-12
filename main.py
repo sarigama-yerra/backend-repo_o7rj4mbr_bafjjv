@@ -21,7 +21,8 @@ app.add_middleware(
 
 class FlipRequest(BaseModel):
     base_price: confloat(gt=0) = Field(..., description="Base price before flip")
-    win_odds: confloat(gt=0, lt=1) = 0.9
+    # 10% chance to win a discount, 90% chance to pay a surcharge
+    win_odds: confloat(gt=0, lt=1) = 0.1
     # Pydantic v2: conlist uses min_length/max_length (not min_items/max_items)
     discount_range: conlist(confloat(gt=0, lt=1), min_length=2, max_length=2) = [0.1, 0.25]
     surcharge_range: conlist(confloat(gt=0, lt=1), min_length=2, max_length=2) = [0.2, 0.25]
